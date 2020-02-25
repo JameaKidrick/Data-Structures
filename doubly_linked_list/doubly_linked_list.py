@@ -158,8 +158,24 @@ class DoublyLinkedList:
     def get_max(self):
         # PLAN:
             # make max variable
+            maximum = 0
+            # make current node variable (initially set as the head)
+            cur_node = self.head
+            # make current value variable (initially set as the head value)
+            cur_value = self.head.value
             # loop through node via node.next
-            # if node.value > node.next
-                # update max
-            # return max
-        pass
+            # check to make sure that the value is not None
+            while cur_value is not None:
+                # if node.value > node.next
+                if cur_value > maximum:
+                    # update maximum
+                    maximum = cur_value
+                # check to make sure that the next node is not None
+                if cur_node.next is not None:
+                        # set the current value and node as the next value and node
+                        cur_value = cur_node.next.value
+                        cur_node = cur_node.next
+                else:
+                    # otherwise return the maximum because that is the end of the list
+                    return maximum
+            return maximum
