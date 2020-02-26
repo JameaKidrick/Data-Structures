@@ -12,7 +12,7 @@ class Queue:
         '''
         adds an item to the back of the queue
         '''
-        self.storage.add_to_head(value)
+        self.storage.add_to_tail(value)
         self.size += 1
         return self.size
 
@@ -20,11 +20,11 @@ class Queue:
         '''
         removes and returns an item from the front of the queue
         '''
-        if not self.storage.tail:
+        if not self.storage.head:
             return None
         else:
             self.size -= 1
-            return self.storage.remove_from_tail()
+            return self.storage.remove_from_head()
 
     def len(self):
         '''
