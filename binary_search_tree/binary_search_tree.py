@@ -3,7 +3,8 @@ sys.path.append('../queue_and_stack')
 from dll_queue import Queue
 from dll_stack import Stack
 
-
+# CONSISTENT PROBLEM
+    # I kept coding return BinarySearchTree(left.value).insert(value) instead of just left.value.insert(value)
 class BinarySearchTree:
     def __init__(self, value):
         self.value = value
@@ -21,7 +22,7 @@ class BinarySearchTree:
             # Look left 
             # If node, repeat
             if self.left:
-                return BinarySearchTree(self.left.value).insert(value)
+                return self.left.insert(value)
             # If no node, make new one with value
             else:
                 self.left = BinarySearchTree(value)
@@ -31,7 +32,7 @@ class BinarySearchTree:
             # Look right
             # If node, repeat
             if self.right:
-                return BinarySearchTree(self.right.value).insert(value)
+                return self.right.insert(value)
             # If no node, make new one with value
             else:
                 self.right = BinarySearchTree(value)
@@ -50,7 +51,7 @@ class BinarySearchTree:
             # Go left
             # Look at node
             if self.left:
-                return BinarySearchTree(self.left).contains(target)
+                return self.left.contains(target)
             else:
                 return False
         # If target is bigger or equal,
@@ -58,39 +59,37 @@ class BinarySearchTree:
             # Go right
             # Look at node
             if self.right:
-                return BinarySearchTree(self.right).contains(target)
+                return self.right.contains(target)
             else:
                 return False
         else:
             return True
-        
 
     # Return the maximum value found in the tree
     def get_max(self):
         # If no right child, return value
+        if self.right is None:
+            return self.value
         # Otherwise, go right until you can’t anymore
+        else:
+            return self.right.get_max()
         # Return value
-        pass
 
     # Call the function `cb` on the value of each node
     # You may use a recursive or iterative approach
     def for_each(self, cb):
-        # If no node, return None
-        # Call cb on node
-        # If right child, go right
-        # If left child, go left
-        current = self.value
+        # # If no node, return None
         if not self.value:
             return None
+        # # Call cb on node
         else:
-            return cb(self.value)
-        
-        if self.value.right:
-            current = self.value.right
-        if self.value.left:
-            current = self.value.left
-        
-        for_each(cb)
+            cb(self.value)
+        # If right child, go right
+        if self.right:
+            return self.right.for_each(cb)
+        # If left child, go left
+        if self.left:
+            return self.left.for_each(cb)
 
     # DAY 2 Project -----------------------
 
